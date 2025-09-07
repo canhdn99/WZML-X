@@ -59,8 +59,8 @@ async def speedtest_command(client: Client, message: Message):
     try:
         speed_results = await sync_to_async(Speedtest)
         await sync_to_async(speed_results.get_best_server)
-        await sync_to_async(speed_results.download)
-        await sync_to_async(speed_results.upload)
+        await sync_to_async(speed_results.download, threads=1)
+        await sync_to_async(speed_results.upload, threads=1)
     except ConfigRetrievalError:
         await edit_message(
             speed,
